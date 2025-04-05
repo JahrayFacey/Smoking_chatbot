@@ -1,0 +1,94 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+- story: craving struggle
+  steps:
+  - intent: support
+  - action: utter_support
+  - action: commitment-reminder
+  - action: craving_information
+  - action: craving_strength
+  - intent: craving_strength1-10
+  - action: suggest actions
+
+- story: report smoke and get activity
+  steps:
+  - intent: report_smoke
+  - action: Support1
+  - action: utter_wheredidyousmoke
+  - intent: inform_location
+    entities:
+    - location: work
+  - action: utter_whendidyousmoke
+  - intent: inform_time
+    entities:
+    - time: 1.00pm
+  - action: utter_feelbefore 
+  - intent: feeling
+  - action: utter_feelafter
+  - intent: feeling
+  - action: utter_report_smoke_confirmation
+  - intent: affirm
+  - action: utter_support2
+  - action: utter_plan_introduction
+  - action: utter_suggest_action1
+
+- story: user wants information about tobacco
+  steps:
+  - intent: request_tobacco_information
+  - action: tobacco_information_options
+
+- story: user wants information about nicotine
+  steps:
+  - intent: request_tobacco_information
+  - action: utter_tobbaco_information_options
+  - intent: nicotine_information
+
+- story: user wants information about what nicotine is
+  steps: 
+  - intent: request_tobacco_information
+  - action: utter_tobbaco_information_options
+  - intent: nicotine_information
+  - action: utter_nicotine_information_options
+  - intent: what_nicotine_is
+  - action: utter_what_nicotine_is1
+  - action: utter_what_nicotine_is2
+
+- story: user wants information about the effects of nicotine carrying on from learning what it is.
+  steps: 
+  - intent: request_tobacco-information
+  - action: utter_tobbaco_info_options
+  - intent: nicotine_information
+  - action: utter_nicotine_information
+  - intent: what_nicotine_is
+  - action: utter_what_nicotine_is1
+  - action: utter_what_nicotine_is2
+  - action: utter_would_know_more

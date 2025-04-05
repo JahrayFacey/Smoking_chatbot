@@ -1,0 +1,208 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+
+- intent: report_smoke
+  examples: |
+    - I smoked again
+    - I had a ciggarette
+    - I lit up
+    - I smoked
+    - I gave in to my craving
+    - I just smoked
+
+- intent: strong-craving
+  examples: |
+    - I have a really bad craving
+    - I really want to smoke
+    - I can't focus because I want to smoke
+    - I need a ciggarette 
+    - It's hard to concentrate
+    - My urge is strong
+
+- intent: report_smoke
+  examples: |
+    - I smoked at [work](location) at [2.00 pm](time)
+    - I smoked because I felt [stressed](feeling).
+    - My craving was a [9](craving_intensity) and I decided to smoke
+
+- intent: feelings
+  examples: |
+    - I feel guilty 
+    - I feel stressed
+    - I feel bad
+    - I feel awful
+    - I feel depressed
+    - I feel upset
+    - I feel down
+    - I feel tense
+    - I feel restless
+    - I feel annoyed
+    - I feel irritated
+    - I feel okay
+    - I feel good
+    - I feel relaxed
+    - I feel happy
+    - I feel great
+    - I feel amazing
+    - I feel at ease
+
+- intent: reflect_negative_feeling
+  examples: |
+    - I feel guilty 
+    - I feel stressed
+    - I feel bad
+    - I feel awful
+    - I feel depressed
+    - I feel upset
+    - I feel down
+    - I feel tense
+    - I feel restless
+    - I feel annoyed
+    - I feel irritated
+
+- intent: reflect_positive_feeling
+  examples: |
+    - I feel okay
+    - I feel good
+    - I feel relaxed
+    - I feel happy
+    - I feel great
+    - I feel amazing
+    - I feel at ease
+
+- intent: positive_day
+  examples: |
+    - It's going well
+    - It's going great
+    - So far, so good
+    - It's going amazing
+    - I had a good day today
+    - It was a nice, chill day
+    - it was okay
+
+- intent: negative_day
+  examples: |
+    - It's going bad
+    - Today was stressful
+    - Had a bad day today
+    - It was really bad
+    - nothing special
+
+- intent: request_tobacco_information
+  examples: |
+    - I want to learn about tobacco
+    - I'm curious about tobacco
+    - I would like to learn about tobacco
+
+- intent: nictoine_information
+  examples: |
+    - nicotine
+    - I'm interested about nicotine
+    - I'm curious about nicotine
+    - I want to learn about nicotine
+
+- intent: what_nicotine_is
+  examples: |
+    - what is nicotine?
+    - what niotine actually is
+    - nicotine itself
+
+- intent: inform_location
+  examples: |
+    - work
+    - school
+    - outside
+    - inside
+    - with friends
+    - park
+
+

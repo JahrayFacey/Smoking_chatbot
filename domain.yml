@@ -1,0 +1,176 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - report_smoke
+  - inform_location
+  - inform_time
+  - inform_craving_intensity
+  
+entities:
+  - location
+  - feeling
+  - time
+  - craving intensity
+
+actions:
+  - action_abdominal_breathing
+  - action_478_breathing
+  - action_box_breathing
+responses:
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Alright mate! Have a blessed day and remember to drink plenty of water. Take care."
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  utter_wheredidyousmoke:
+  - text: "Where did you smoke?"
+
+  utter_whendidyousmoke:
+  - text: "when did you smoke?"
+  
+  utter_feelbefore:
+  - text: "how did you feel before smoking?"
+
+  utter_feelafter:
+  - text: "How did you feel after?"
+
+  utter_whatactivity:
+  - text: "What was you doing?"
+
+  utter_support1:
+  - text: "It's okay. It's important to just view a relapse as a minor setback. You now know that  {time} and {location} can be a trigger."
+
+  utter_support2:
+  - text: "It's perfectly normal to feel that way and I can definitely relate. I just want you to take a second and praise yourself for taking action."
+  
+  utter_setcommitemts:
+  - text: "Do you want to set a commitemt?"
+
+  utter_goodday:
+  - text: "Have a blessed day. Drink plenty of water aswell. It's hard to ignore things when you're dehydrated."
+  
+  utter_commitemt:
+  - text: "And as you go about your day remember your promises to yourself. {commitment}."
+
+  utter_affirmationsetting:
+  - text: "Do you want to set an affirmation to help motivate you? I can suggest one or you can write one youself."
+
+  utter_affirmationbenefits:
+  - text: "Affirmations have several benefits including: 1. lowering stress levels 2. Improved mood. 3.Enchanced focus and productivity."
+
+  utter_affirmation_information1:
+  - text: "Affirmations are best repeated daily to recieve the most benefits and remind youself of your strengths. It's good practise to have a set time to read them."
+
+  utter_breathwork:
+  - text: "which breathwork technique would you like to use?"
+
+  utter_breathwork_length:
+  - text: "How long would you like it to be?"
+
+  utter_practise_together:
+  - text: "Would you like to practise together?"
+  
+  utter_report_smoke_confirmation:
+  - text: "So you smoked at [location] on [time]? Is that right?"
+
+  utter_meditation_tried_before:
+  - text: "Have you tried meditation before?"
+
+  utter_plan_introduction:
+  - text: "All good general. I want you to recognise this situation as a potential trigger so that when a craving arrises, you're already equipped to handle it."
+
+  utter_plan_activity_confirm:
+  - text: "Together we will come up with an activity for you to use."
+
+  utter_is_that_okay:
+  - text: "Is that okay?"
+
+  utter_accept_plan_activity:
+  - text: "Perfect. Here's a few of the activities I used to cope with cravings. Why don't you choose one?"
+
+  utter_deny_plan_activity:
+  - text: "Alright all good. I'm not going anywhere so we can make a plan if you change your mind."
+
+  utter_how_did_that_feel:
+  - text: "How did that feel for you?"
+
+  utter_how_did_that_feel_good:
+  - text: "That's great that it made that you feel that way. I think we now have something in place with you."
+
+  utter_show_created_plan:
+  - text: "Now when you find yourself being in this trigger situation, you have something in place to keep you focused. (plan_slot)"
+
+  utter_praise1:
+  - text: "I just want to take a second to say I'm proud of you for being able to recognise an issue and take action. Trust and believe that will take you far in life."
+
+  utter_how_did_that_feel_bad:
+  - text: "No worries, some things aint for us and that's cool. Would you like to try a different activity?"
+
+  utter_different_activity_yes:
+  - text: "You love to see it. Here's some new activities."
+
+  utter_different_activity_no:
+  - text: "All good. You can always come back whenever needed. I'm just happy to see that you recognised an issue and attempted to correct it. Just remember not to get discouraged."
+
+  utter_create_affirmation:
+  - text: "Following off this session, do you want to create an affirmation? I can generate one for you if you like."
+
+  utter_create_affirmation_did_activity:
+  - text: "I would suggest linking your new affirmation with the activity you performed. For example 'I only breath in healthy, clean air' if you did breathwork"
+
+  utter_generate_activity:
+  - text: (generate activity)
+
+  utter_read_affirmations:
+  - text: "Do you want to read a few? Affirmations are at their most powerful when said out loud and in a mirror."
+
+  utter_anything_else:
+  - text: "Do you have anything else you would like to report or talk about?"
+
+  utter_nictotine_information_options:
+  - text: "That's cool. Would you like to know about what it is or the effects it has?"
+
+  utter_tobacco_information_options:
+  - text: "What part of tobacco would you like to learn about?"
+
+  utter_what_nicotine_is1:
+  - text: "Nicotine is a addictive substance found in tobacco products. Ciggerates have serveral chemicals but nicotine has the most impact. It creates a pleasant, relaxing feeling for users because it releases endorphins which are chemicals that improve mood. It also triggers dopamine that is a part of the brain's reward system and increases heart rate. The effects of nicotine are powerful but quick which leads to a cycle of chasing that feeling."
+
+  utter_what_nicotine_is2:
+  - text: "Nicotine is very harmful and has loads of negative effects on almost every part of the body. Continued smoking can lead to heart disease, stroke and lung cancer. Prolonged consumption of nicotine can lead to nicotine dependence. A 2020 study found that 23.6 million people aged 12 and above suffered from nicotine dependence. The body also adapts to nicotine after a while, requiring more to get the same effect as the first time trying it."
+
+  utter_would_know_more:
+  - text: "Would you like to know more?"
+
+  utter_suggest_action1:
+  - text: "May I suggest these actions. These helped me alot."
+
+  utter_things_today:
+  - text: "How is today going so far"
+
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

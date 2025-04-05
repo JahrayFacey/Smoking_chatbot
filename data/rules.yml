@@ -1,0 +1,19 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: If the user reports that they are struggling with smoking offer words of support before offering some activities
+  steps:
+  - intent: report_smoke
+  - action: utter_support2
+
