@@ -31,12 +31,12 @@ stories:
 
 - story: craving struggle
   steps:
-  - intent: support
+  - intent: strong_craving
   - action: utter_support
   - action: commitment-reminder
   - action: craving_information
   - action: craving_strength
-  - intent: craving_strength1-10
+  - intent: inform_craving_intensity
   - action: suggest actions
 
 - story: report smoke and get activity
@@ -51,10 +51,14 @@ stories:
   - intent: inform_time
     entities:
     - time: 1.00pm
-  - action: utter_feelbefore 
-  - intent: feeling
+  - action: utter_feelbefore
+  - or:
+    - intent: reflect_negative_feeling
+    - intent: reflect_positive_feeling
   - action: utter_feelafter
-  - intent: feeling
+  - or:
+    - intent: reflect_negative_feeling
+    - intent: reflect_positive_feeling
   - action: utter_report_smoke_confirmation
   - intent: affirm
   - action: utter_support2
@@ -84,7 +88,7 @@ stories:
 
 - story: user wants information about the effects of nicotine carrying on from learning what it is.
   steps: 
-  - intent: request_tobacco-information
+  - intent: request_tobacco_information
   - action: utter_tobbaco_info_options
   - intent: nicotine_information
   - action: utter_nicotine_information
@@ -92,3 +96,88 @@ stories:
   - action: utter_what_nicotine_is1
   - action: utter_what_nicotine_is2
   - action: utter_would_know_more
+
+- story: user requests abdominal breathing
+  steps:
+  - intent: request_activity
+    entities:
+     - activity_type: "abdominal breathing" 
+  - action: action_abdominal_breathing
+
+- story: user requests 4-7-8 breathing
+  steps:
+  - intent: request_activity
+    entities:
+     - activity_type: "4-7-8 breathing"
+  - action: action_four_seven_eight_breathing
+
+- story: user requests box breathing
+  steps:
+  - intent: request_activity
+    entities:
+     - activity_type: "box breathing"
+  - action: action_box_breathing
+
+- story: user reports stress and bot suggests abdominal breathing
+  steps:
+  - intent: report_smoke
+  - action: utter_how_did_that_feel
+  - intent: feeling
+    entities:
+    - feeling: "stressed"
+  - action: action_abdominal_breathing
+
+- story: user asks for any activity and bot suggests breathwork
+  steps:
+  - intent: request_activity
+  - action: action_suggest_breathwork
+
+- story: user requests mindfulness meditation
+  steps:
+  - intent: request_meditation
+    entities:
+    - meditation_type: "mindfulness"
+  - action: action_ask_guided
+  - intent: confirm_guided
+    entities:
+    - guided: "yes"
+  - action: action_guided_mindfulness_meditation
+
+- story: user requests unguided progressive relaxation
+  steps:
+  - intent: request_meditation
+    entities:
+    - meditation_type: "progressive relaxation"
+  - action: action_ask_guided
+  - intent: confirm_guided
+    entities:
+    - guided: "no"
+  - action: action_progressive_relaxation
+
+- story: user requests focused meditation
+  steps:
+  - intent: request_meditation
+    entities:
+    - meditation_type: "focused"
+  - action: action_ask_guided
+  - intent: confirm_guided
+    entities:
+    - guided: "yes"
+  - action: action_guided_focused_meditation
+
+- story: user reports work break trigger
+  steps:
+  - intent: report_smoke
+  - action: utter_ask_location
+  - intent: inform_location
+    entities:
+    - location: "work"
+  - action: action_mindfulness_meditation
+
+- story: When the user enters the daily talk begin with a greet, congratulate the user on not smoking and give the milestone that they achieved (once per day)
+  steps:
+  - action: utter_greet
+  - action: utter_congratulate_not_smoking
+  - action: utter_milestone_reached
+
+  

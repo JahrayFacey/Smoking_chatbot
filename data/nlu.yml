@@ -90,6 +90,24 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human?
 
+- intent: ask_features
+  examples: |
+    - What features do you have?
+    - What can you do exactly?
+    - What can you do?
+    - Can I have a list of your features
+    - How can you help?
+    - what do you offer?
+
+- intent: remind_commitment
+  examples: |
+    - What's my commitment?
+    - Can I have a reminder of my commitment?
+    - Can you state my commitment?
+    - What was my commitment again?
+    - Can you tell me my commitment?
+    - can you show my commitment again please?
+
 - intent: report_smoke
   examples: |
     - I smoked again
@@ -185,16 +203,16 @@ nlu:
 
 - intent: nictoine_information
   examples: |
-    - nicotine
-    - I'm interested about nicotine
+    - I'm interested learning about nicotine
     - I'm curious about nicotine
-    - I want to learn about nicotine
+    - I want to learn about nicotine and it's effects
 
 - intent: what_nicotine_is
   examples: |
     - what is nicotine?
-    - what niotine actually is
-    - nicotine itself
+    - what are the effects of nicotine?
+    - what is nicotine doing to me exactly?
+    - what exactly is nicotine?
 
 - intent: inform_location
   examples: |
@@ -204,5 +222,81 @@ nlu:
     - inside
     - with friends
     - park
+
+- intent: inform_quit_date
+  examples: |
+    - I quit today
+    - I quit 3 days ago
+    - I quit a week ago
+    - I quit yesterday
+
+- intent: request_activity
+  examples: |
+    - I would like to try an activity
+    - I want to practise an activity
+    - can you guide me with an activity
+    - What activities can I do?
+    - Suggest an activity.
+    - I need something to do instead of smoking.
+    - Suggest [abdominal breathing](activity_type).
+    - Let's do [4-7-8 breathing](activity_type).
+    - Can we try [box breathing](activity_type)?
+
+- intent: confirm_guided
+  examples: |
+    - ["Yes](guided), please."
+    - "[Guided](guided), please."
+    - ["Yes](guided), I would like a guided one."
+    - "[Definitely guided](guided)."
+    - "Sure, that would be helpful."
+    - "[Yes](guided)Yes, guide me."
+    - "I'd prefer [guided](guided)."
+    - [Yes](guided), I want to be guided.
+    - [Yes](guided), that sounds good.
+    - [No](guided), thanks.
+    - [Unguided](guided) is fine.
+    - I'll do it myself.
+    - [No](guided), I prefer to do it on my own.
+    - [No](guided), I don't need guidance.
+    - I'm good without [guidance](guided).
+    - I prefer to meditate by myself.
+    - [No](guided), I want to try it unguided.
+    - Just the regular version.
+    - I want to do it [unguided](guided), please.
+    - [Yeah](guided).
+    - [Sure](guided).
+    - Okay, [guided](guided).
+    - [No](guided) thanks, I got this.
+
+- intent: request_meditation
+  examples: |
+    - can we try meditation
+    - i would like to try meditation
+    - today i would like to use mediation
+    - i feel like doing some meditation
+    - can we have a quick meditation
+    - i need to meditate 
+    - i would like to try [mindfulness meditation](meditation_type)
+    - i would like some [mindfulness meditation](meditation_type)
+    - can we try [mindfulness mediation](meditation_type)
+    - i would like to try (progressive relaxation)(meditation_type)
+    - can we try [progressive relaxation](meditation_type)
+    - i would like some [progressive relaxation](meditation_type)
+    - i would like to try [focused meditation](meditation_type)
+    - can we try some [focused meditation](meditation_type)
+    - i would like some [focused meditation](meditation_type)
+  
+- intent: inform_craving_intensity
+  examples: |
+    - My craving is at a [1](craving_intensity)
+    - My craving is at a [2](craving_intensity) i would say
+    - My craving is a solid [3](craving_intensity)
+    - My craving is a [4](craving_intensity) at the moment
+    - My craving is about a [5](craving_intensity)
+    - My craving is a [6](craving_intensity)
+    - My craving is a strong [7](craving_intensity)
+    - My craving is i would say an [8](craving_intensity)
+    - My craving is really bad I would put it at a [9](craving_intensity)
+    - [10](craving_intensity)
 
 
