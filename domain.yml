@@ -12,18 +12,127 @@ intents:
   - inform_location
   - inform_time
   - inform_craving_intensity
+  - request_meditation
+  - confirm_guided
+  - remind_commitment
+  - request_activity
+  - request_tobacco_information
+  - nicotine_information
+  - what_nicotine_is
   
 entities:
   - location
   - feeling
   - time
-  - craving intensity
-
+  - craving_intensity
+  - activity_type
+  - meditation_type
+  - guided
+  - length_of_addiction
+  - money_spent
+  - reasons_for_change
+  - set_commitemnt
+  
 actions:
   - action_abdominal_breathing
   - action_478_breathing
   - action_box_breathing
+  - action_mindfulness_meditation
+  - action_progressive_relaxation
+  - action_focused_meditation
+  - action_guided_mindfulness_meditation
+  - action_guided_progressive_relaxation
+  - action_guided_focused_meditation
+  - action_ask_guided
+  - action_chat_with_gpt
+  - action_milestone_achieved
+  - validate
+  - action_set_commitement
+  - action_complete_intro_form
+
+templates:
+  utter_ask_guided:
+  - text: "Would you like a guided mediation?"
+
+slots:
+  completed_form:
+    type: bool
+    influence_conversation: false
+    initial_value: false
+    mappings:
+      - type: custom
+        action: ActionCompleteIntroForm
+
+  name:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: name
+
+length_of_addiction:
+    type: text
+    mapppings: 
+      - text: from_entity
+        entity: length_of_addiction
+
+money_spent:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: money_spent
+
+reasons_for_change:
+    type: text
+    mappings: 
+      - type: from_entity
+        entity: reasons_for_change
+
+set_commitemnt:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: set_commitemnt
+  
+quit_date:
+    type: text
+    influence_conversation: false
+    mappings: 
+      - type: from_text
+
+forms:
+  introduction_form:
+    required_slots:
+      - name
+      - length_of_addiction
+      - money_spent
+      - reasons_for_change
+
 responses:
+  utter_introduction:
+  - text: "Hey! Hope everything is going okay. My name is Paul and I'm glad you're here to start your path to freedom.\n Before we begin I would just like to ask a few questions. is that okay?"
+
+  utter_ask_name:
+  - text: "What is your name"
+
+  utter_ask_length_of_addiction:
+  - text: "How long have you been smoking for?"
+
+  utter_ask_money_spent:
+  - text: "How much money do you spend on a pack of ciggarattes?"
+
+  utter_ask_reasons_for_change:
+  - text: "what are your reasons for wanting to change?"
+
+  utter_intro_congratulations:
+  - text: "Congratulations on recognising an issue and taking steps to fix it. It can be hard for a lot of people to do. The trick to reaching your goals is celebrating the small ones."
+
+  
+  utter_features:
+  - text: "With me, I will support you through with making a plan when cravings arrise, providing you information and activities or just having a good ol' chat.\n I will also track your spending, days of abstinance and feelings."
+
+
+
+
   utter_greet:
   - text: "Hey! How are you?"
 
@@ -64,13 +173,14 @@ responses:
   utter_support2:
   - text: "It's perfectly normal to feel that way and I can definitely relate. I just want you to take a second and praise yourself for taking action."
   
-  utter_setcommitemts:
-  - text: "Do you want to set a commitemt?"
+  utter_ask_set_commitemts:
+  - text: "Do you want to set a commitemt? setting goals can be a big motivator."
 
   utter_goodday:
   - text: "Have a blessed day. Drink plenty of water aswell. It's hard to ignore things when you're dehydrated."
   
-  utter_commitemt:
+  utter_commitment:
+  - text: "Here's your commitment. {commitment}"
   - text: "And as you go about your day remember your promises to yourself. {commitment}."
 
   utter_affirmationsetting:
@@ -168,6 +278,24 @@ responses:
 
   utter_things_today:
   - text: "How is today going so far"
+
+  utter_congratulate_not_smoking:
+  - text: "Big up you for not smoking today!"
+    image: "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbm1wdWxhYnh6N2RncGN5YzkycHQxemY2MHUwdnJ3OG8wODJkY25mMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/AFJXbVjtDGtM8eKTwt/giphy.gif"
+  - text: "You should treat yourself to something nice. No matter how small, we always have to pride ourselves on reaching goals."
+
+  utter_milestone_day_1:
+  - text: "Big up! That means your heart rate and blood pressure has already returnd to normal."
+  - text: "Just a day and you're already much healthier!"
+
+  utter_milestone_day_2:
+  - text: "You know Carbon Monoxide? That gas that prevents oxygen delivery and increases the chance of heart disease?"
+  - text: "Guess what? It's gone! Every day that passes is changing you for the better!"
+
+  utter_milestone_day_3:
+  - text: "Your lungs have started repairing themselves. Breathing is going to be alot easier on your body."
+
+  
 
 
 
