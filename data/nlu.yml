@@ -49,47 +49,6 @@ nlu:
     - no way
     - not really
 
-- intent: mood_great
-  examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
-
-- intent: mood_unhappy
-  examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
-
-- intent: bot_challenge
-  examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
-
 - intent: ask_features
   examples: |
     - What features do you have?
@@ -108,16 +67,7 @@ nlu:
     - Can you tell me my commitment?
     - can you show my commitment again please?
 
-- intent: report_smoke
-  examples: |
-    - I smoked again
-    - I had a ciggarette
-    - I lit up
-    - I smoked
-    - I gave in to my craving
-    - I just smoked
-
-- intent: strong-craving
+- intent: strong_craving
   examples: |
     - I have a really bad craving
     - I really want to smoke
@@ -129,29 +79,35 @@ nlu:
 - intent: report_smoke
   examples: |
     - I smoked at [work](location) at [2.00 pm](time)
-    - I smoked because I felt [stressed](feeling).
+    - I smoked because I felt [stressed](feelings).
     - My craving was a [9](craving_intensity) and I decided to smoke
+    - I smoked again
+    - I had a ciggarette
+    - I lit up
+    - I smoked
+    - I gave in to my craving
+    - I just smoked
 
-- intent: feelings
-  examples: |
-    - I feel guilty 
-    - I feel stressed
-    - I feel bad
-    - I feel awful
-    - I feel depressed
-    - I feel upset
-    - I feel down
-    - I feel tense
-    - I feel restless
-    - I feel annoyed
-    - I feel irritated
-    - I feel okay
-    - I feel good
-    - I feel relaxed
-    - I feel happy
-    - I feel great
-    - I feel amazing
-    - I feel at ease
+# - intent: feelings
+#   examples: |
+#     - I feel guilty 
+#     - I feel stressed
+#     - I feel bad
+#     - I feel awful
+#     - I feel depressed
+#     - I feel upset
+#     - I feel down
+#     - I feel tense
+#     - I feel restless
+#     - I feel annoyed
+#     - I feel irritated
+#     - I feel okay
+#     - I feel good
+#     - I feel relaxed
+#     - I feel happy
+#     - I feel great
+#     - I feel amazing
+#     - I feel at ease
 
 - intent: reflect_negative_feeling
   examples: |
@@ -201,7 +157,7 @@ nlu:
     - I'm curious about tobacco
     - I would like to learn about tobacco
 
-- intent: nictoine_information
+- intent: nicotine_information
   examples: |
     - I'm interested learning about nicotine
     - I'm curious about nicotine
@@ -223,13 +179,6 @@ nlu:
     - with friends
     - park
 
-- intent: inform_quit_date
-  examples: |
-    - I quit today
-    - I quit 3 days ago
-    - I quit a week ago
-    - I quit yesterday
-
 - intent: request_activity
   examples: |
     - I would like to try an activity
@@ -241,6 +190,21 @@ nlu:
     - Suggest [abdominal breathing](activity_type).
     - Let's do [4-7-8 breathing](activity_type).
     - Can we try [box breathing](activity_type)?
+
+- intent: inform_activity
+  examples: |
+    - I would like to try [abdominal breathing](activity_type)
+    - Let's do [abdominal breathing](activity_type)
+    - can we try [abdominal breathing](activity_type)
+    - [abdominal](activity_type) sounds good
+    - I would like to try[4-7-8 breathing](activity_type)
+    - can we do [4 7 8 breathing](activity_type)
+    - i want to practise [478 breathing](activity_type)
+    - [478](activity_type)
+    - I would like to try [box breathing](activity_type)
+    - lets do [box breathing](activity_type)
+    - [box breathing](activity_type)
+    - i want to try [box breathing](activity_type)
 
 - intent: confirm_guided
   examples: |
@@ -285,6 +249,25 @@ nlu:
     - i would like to try [focused meditation](meditation_type)
     - can we try some [focused meditation](meditation_type)
     - i would like some [focused meditation](meditation_type)
+
+- intent: activity_feedback_helpful
+  examples: |
+    - It worked wonders
+    - It felt great
+    - i feel calmer
+    - i feel better now
+    - yes it felt great
+    - yes it helped
+    - it worked
+    - it was helpful
+
+- intent: activity_feedback_not_helpful
+  examples: |
+    - cant say i did
+    - wasnt helpful
+    - didnt help
+    - not much
+    - i dont think that worked
   
 - intent: inform_craving_intensity
   examples: |
@@ -298,5 +281,41 @@ nlu:
     - My craving is i would say an [8](craving_intensity)
     - My craving is really bad I would put it at a [9](craving_intensity)
     - [10](craving_intensity)
+
+- intent: inform_time
+  examples: |
+    - I smoked at around [8PM](time)
+    - I smoked at [7AM](time)
+    - I smoked in the [morning](time) 
+    - I smoked in the [afternoon](time)
+    - I smoked in the [night](time)
+    - I smoked in the [evening](time)
+    - I smoked during the day at around [3pm](time)
+
+# - intent: four_seven_eight_breathing
+#   examples: |
+#     - I would like to try [4-7-8 breathing](activity_type)
+#     - [4-7-8 breathing](activity_type) please
+#     - can we do [four-seven-eight breathing](activity_type) 
+#     - can we do [478](activity_type) 
+#     - try [478 breathing](activity_type)
+
+# - intent: box_breathing
+#   examples: |
+#    - I would like to try [box breathing](activity_type)
+#    - can we try [box breathing](activity_type)
+#    - [box breathing](activity_type)
+#    - [box breathing](activity_type) works
+#    - lets do [box](activity_type)
+
+# - intent: abdominal_breathing
+#   examples: |
+#    - I would like to try [abdominal breathing](activity_type)
+#    - [[activity_type](activity_type) abdominal breathing please
+#    - [abdominal](activity_type) works
+#    - [abdominal breathing](activity_type) sounds good 
+
+
+
 
 

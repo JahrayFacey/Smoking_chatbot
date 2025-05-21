@@ -1,17 +1,6 @@
 version: "3.1"
 
 rules:
-
-- rule: Say goodbye anytime the user says goodbye
-  steps:
-  - intent: goodbye
-  - action: utter_goodbye
-
-- rule: Say 'I am a bot' anytime the user challenges
-  steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
-
 - rule: Run an introduction form when the user first interacts with the bot
   condition: 
   - slot_was_set:
@@ -52,50 +41,105 @@ rules:
 - rule: remind user of commitemnt
   steps:
     - intent: remind_commitment
-    - action: utter_commitment
+    - action: utter_remind_commitment
 
-
-- rule: If the user reports that they are struggling with smoking offer words of support before offering some activities
+- rule: when the user says goodbye, the bot responds with good bye and ends the session
   steps:
-  - intent: report_smoke
-  - action: utter_support2
+    - intent: goodbye
+    - action: utter_goodbye
 
-- rule: Handle request for abdominal breathing
-  steps:
-  - intent: request_activity
-  - action: action_abdominal_breathing
+- rule: ask if user found box breathing helpful
+  steps:  
+    - action: action_box_breathing
+    - action: utter_did_that_help
 
-- rule: Handle request for 4-7-8 breathing
-  steps:
-  - intent: request_activity
-  - action: action_four_seven_eight_breathing
+- rule: ask if user found abdominal breathing helpful
+  steps:  
+    - action: action_abdominal_breathing
+    - action: utter_did_that_help
 
-- rule: Handle request for box breathing
-  steps:
-  - intent: request_activity
-  - action: action_box_breathing
+- rule: ask if user found 4-7-8 breathing helpful
+  steps:  
+    - action: action_four_seven_eight_breathing
+    - action: utter_did_that_help
 
-- rule: handle guided mindfulness meditation
-  steps:
-  - intent: request_meditation
-  - action: action_ask_guided
-  - intent: confirm_guided
-  - action: action_guided_mindfulness_meditation
+- rule: ask if user found focused meditation helpful
+  steps:  
+    - action: action_focused_meditation
+    - action: utter_did_that_help
 
-- rule: handle unguided progressive relaxation
-  steps:
-  - intent: request_meditation
-  - action: action_ask_guided
-  - intent: confirm_guided
-  - action: action_progressive_relaxation
+- rule: ask if user found mindfulness meditation helpful
+  steps:  
+    - action: action_mindfulness_meditation
+    - action: utter_did_that_help
+  
+- rule: ask if user found progressive relaxation helpful
+  steps:  
+    - action: action_progressive_relaxation
+    - action: utter_did_that_help
 
-- rule: handle guided focused meditation
-  steps:
-  - intent: request_meditation
-  - action: action_ask_guided
-  - intent: confirm_guided
-  - action: action_guided_focused_meditation
+- rule: ask if user found guided focused meditation helpful
+  steps:  
+    - action: action_guided_focused_meditation
+    - action: utter_did_that_help
 
-- rule: Once per day (as long as the user hasn't smoked) the bot congratulates the user and states milestone achieved
+- rule: ask if user found guided progressive relaxation helpful
+  steps:  
+    - action: action_guided_progressive_relaxation
+    - action: utter_did_that_help
+
+- rule: ask if user found guided mindfulness meditation helpful
+  steps:  
+    - action: action_guided_mindfulness_meditation
+    - action: utter_did_that_help
+
+- rule: response to activity feedback - helpful
   steps:
-  - action: action_milestone_achieved
+    - intent: activity_feedback_helpful
+    - action: utter_how_did_that_activty_feel_good
+
+- rule: response to activity feedback - not helpful
+  steps:
+    - intent: activity_feedback_not_helpful
+    - action: utter_how_did_that_activty_feel_bad
+
+
+# - rule: Handle request for abdominal breathing
+#   steps:
+#   - intent: request_activity
+#   - action: action_abdominal_breathing
+
+# - rule: Handle request for 4-7-8 breathing
+#   steps:
+#   - intent: request_activity
+#   - action: action_four_seven_eight_breathing
+
+# - rule: Handle request for box breathing
+#   steps:
+#   - intent: request_activity
+#   - action: action_box_breathing
+
+# - rule: handle guided mindfulness meditation
+#   steps:
+#   - intent: request_meditation
+#   - action: action_ask_guided
+#   - intent: confirm_guided
+#   - action: action_guided_mindfulness_meditation
+
+# - rule: handle unguided progressive relaxation
+#   steps:
+#   - intent: request_meditation
+#   - action: action_ask_guided
+#   - intent: confirm_guided
+#   - action: action_progressive_relaxation
+
+# - rule: handle guided focused meditation
+#   steps:
+#   - intent: request_meditation
+#   - action: action_ask_guided
+#   - intent: confirm_guided
+#   - action: action_guided_focused_meditation
+
+# - rule: Once per day (as long as the user hasn't smoked) the bot congratulates the user and states milestone achieved
+#   steps:
+#   - action: action_milestone_achieved

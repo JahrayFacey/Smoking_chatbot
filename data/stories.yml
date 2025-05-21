@@ -2,37 +2,25 @@ version: "3.1"
 
 stories:
 
-- story: happy path
-  steps:
+- story: user greets the bot and reports that he had a good day
+  steps: 
   - intent: greet
   - action: utter_greet
-  - intent: mood_great
+  - action: utter_things_today
+  - intent: positive_day
   - action: utter_happy
 
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
+- story: user reports that he has had a negative_day
+  steps: 
+  - action: utter_things_today
+  - intent: negative_day
+  - action: utter_sad_day
 
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
 
 - story: craving struggle
   steps:
   - intent: strong_craving
-  - action: utter_support
+  - action: utter_support1
   - action: commitment-reminder
   - action: craving_information
   - action: craving_strength
@@ -65,41 +53,19 @@ stories:
   - action: utter_plan_introduction
   - action: utter_suggest_action1
 
-- story: user wants information about tobacco
-  steps:
-  - intent: request_tobacco_information
-  - action: tobacco_information_options
-
-- story: user wants information about nicotine
+- story: user requests information about what nicotine is
   steps:
   - intent: request_tobacco_information
   - action: utter_tobbaco_information_options
-  - intent: nicotine_information
-
-- story: user wants information about what nicotine is
-  steps: 
-  - intent: request_tobacco_information
-  - action: utter_tobbaco_information_options
-  - intent: nicotine_information
-  - action: utter_nicotine_information_options
-  - intent: what_nicotine_is
+  - intent: what_nicotine_is 
   - action: utter_what_nicotine_is1
   - action: utter_what_nicotine_is2
-
-- story: user wants information about the effects of nicotine carrying on from learning what it is.
-  steps: 
-  - intent: request_tobacco_information
-  - action: utter_tobbaco_info_options
-  - intent: nicotine_information
-  - action: utter_nicotine_information
-  - intent: what_nicotine_is
-  - action: utter_what_nicotine_is1
-  - action: utter_what_nicotine_is2
-  - action: utter_would_know_more
 
 - story: user requests abdominal breathing
   steps:
   - intent: request_activity
+  - action: utter_plan_activity_confirm
+  - intent: inform_activity
     entities:
      - activity_type: "abdominal breathing" 
   - action: action_abdominal_breathing
@@ -107,30 +73,20 @@ stories:
 - story: user requests 4-7-8 breathing
   steps:
   - intent: request_activity
+  - action: utter_plan_activity_confirm
+  - intent: inform_activity
     entities:
-     - activity_type: "4-7-8 breathing"
+     - activity_type: "four_seven_eight_breathing"
   - action: action_four_seven_eight_breathing
 
 - story: user requests box breathing
   steps:
   - intent: request_activity
+  - action: utter_plan_activity_confirm
+  - intent: inform_activity
     entities:
      - activity_type: "box breathing"
   - action: action_box_breathing
-
-- story: user reports stress and bot suggests abdominal breathing
-  steps:
-  - intent: report_smoke
-  - action: utter_how_did_that_feel
-  - intent: feeling
-    entities:
-    - feeling: "stressed"
-  - action: action_abdominal_breathing
-
-- story: user asks for any activity and bot suggests breathwork
-  steps:
-  - intent: request_activity
-  - action: action_suggest_breathwork
 
 - story: user requests mindfulness meditation
   steps:
@@ -168,7 +124,7 @@ stories:
 - story: user reports work break trigger
   steps:
   - intent: report_smoke
-  - action: utter_ask_location
+  - action: utter_wheredidyousmoke
   - intent: inform_location
     entities:
     - location: "work"
@@ -178,6 +134,11 @@ stories:
   steps:
   - action: utter_greet
   - action: utter_congratulate_not_smoking
-  - action: utter_milestone_reached
+  - action: utter_milestone_day_1
+
+- story: User asks for features
+  steps:
+  - intent: ask_features
+  - action: utter_features
 
   
