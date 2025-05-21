@@ -5,9 +5,6 @@ intents:
   - goodbye
   - affirm
   - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
   - report_smoke
   - inform_location
   - inform_time
@@ -17,8 +14,21 @@ intents:
   - remind_commitment
   - request_activity
   - request_tobacco_information
-  - nicotine_information
   - what_nicotine_is
+  - negative_day
+  - positive_day
+  - reflect_positive_feeling
+  - reflect_negative_feeling
+  - ask_features
+  - nicotine_information
+  - strong_craving
+  # - box_breathing
+  # - four_seven_eight_breathing
+  # - abdominal_breathing
+  - inform_activity
+  - activity_feedback_helpful
+  - activity_feedback_not_helpful
+  
   
 entities:
   - location
@@ -31,11 +41,11 @@ entities:
   - length_of_addiction
   - money_spent
   - reasons_for_change
-  - set_commitemnt
+  - set_commitment
   
 actions:
   - action_abdominal_breathing
-  - action_478_breathing
+  - action_four_seven_eight_breathing
   - action_box_breathing
   - action_mindfulness_meditation
   - action_progressive_relaxation
@@ -47,8 +57,9 @@ actions:
   - action_chat_with_gpt
   - action_milestone_achieved
   - validate
-  - action_set_commitement
+  - action_ask_set_commitement
   - action_complete_intro_form
+  - action_suggest_breathwork
 
 templates:
   utter_ask_guided:
@@ -60,44 +71,54 @@ slots:
     influence_conversation: false
     initial_value: false
     mappings:
-      - type: custom
-        action: ActionCompleteIntroForm
+    - type: custom
+      action: ActionCompleteIntroForm
 
   name:
     type: text
     mappings:
-      - type: from_entity
-        entity: name
+    - type: from_entity
+      entity: name
 
-length_of_addiction:
-    type: text
-    mapppings: 
-      - text: from_entity
-        entity: length_of_addiction
-
-money_spent:
-    type: text
-    mappings:
-      - type: from_entity
-        entity: money_spent
-
-reasons_for_change:
+  length_of_addiction:
     type: text
     mappings: 
-      - type: from_entity
-        entity: reasons_for_change
+    - type: from_entity
+      entity: length_of_addiction
 
-set_commitemnt:
+  money_spent:
     type: text
     mappings:
-      - type: from_entity
-        entity: set_commitemnt
+    - type: from_entity
+      entity: money_spent
+
+  reasons_for_change:
+    type: text
+    mappings: 
+    - type: from_entity
+      entity: reasons_for_change
+
+  set_commitemnt:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: set_commitemnt
   
-quit_date:
-    type: text
-    influence_conversation: false
-    mappings: 
-      - type: from_text
+  guided:
+    type: bool
+    mappings:
+    - type: from_entity
+      entity: guided
+  
+  last_activity_helpful:
+    type: bool
+    mappings:
+      - type: from_intent
+        intent: activity_feedback_helpful
+        value: true
+      - type: from_intent
+        intent: activity_feedback_not_helpful
+        value: false
 
 forms:
   introduction_form:
@@ -114,13 +135,13 @@ responses:
   utter_ask_name:
   - text: "What is your name"
 
-  utter_ask_length_of_addiction:
+  utter_ask_introduction_form_length_of_addiction:
   - text: "How long have you been smoking for?"
 
-  utter_ask_money_spent:
+  utter_ask_introduction_form_money_spent:
   - text: "How much money do you spend on a pack of ciggarattes?"
 
-  utter_ask_reasons_for_change:
+  utter_ask_introduction_form_reasons_for_change:
   - text: "what are your reasons for wanting to change?"
 
   utter_intro_congratulations:
@@ -131,26 +152,20 @@ responses:
   - text: "With me, I will support you through with making a plan when cravings arrise, providing you information and activities or just having a good ol' chat.\n I will also track your spending, days of abstinance and feelings."
 
 
-
+  utter_did_that_help:
+  - text: "How was the activity? Did you find it helpful"
 
   utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
+  - text: "What's going on? Hope your doing good."
 
   utter_happy:
-  - text: "Great, carry on!"
+  - text: "That's Great {name}, I'm glad to hear that!"
+
+  utter_sad_day:
+  - text: "I'm sorry to hear that {name}, if you'd like we can perform an activity. I'm sure tommorrow will be better"
 
   utter_goodbye:
   - text: "Alright mate! Have a blessed day and remember to drink plenty of water. Take care."
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
 
   utter_wheredidyousmoke:
   - text: "Where did you smoke?"
@@ -173,7 +188,7 @@ responses:
   utter_support2:
   - text: "It's perfectly normal to feel that way and I can definitely relate. I just want you to take a second and praise yourself for taking action."
   
-  utter_ask_set_commitemts:
+  utter_set_commitmets:
   - text: "Do you want to set a commitemt? setting goals can be a big motivator."
 
   utter_goodday:
@@ -234,8 +249,11 @@ responses:
   utter_praise1:
   - text: "I just want to take a second to say I'm proud of you for being able to recognise an issue and take action. Trust and believe that will take you far in life."
 
-  utter_how_did_that_feel_bad:
+  utter_how_did_that_activty_feel_bad:
   - text: "No worries, some things aint for us and that's cool. Would you like to try a different activity?"
+
+  utter_how_did_that_activty_feel_good:
+  - text: "I'm happy to hear that. Keep doing the right things and progress will come sooner than you realise"
 
   utter_different_activity_yes:
   - text: "You love to see it. Here's some new activities."
@@ -294,6 +312,9 @@ responses:
 
   utter_milestone_day_3:
   - text: "Your lungs have started repairing themselves. Breathing is going to be alot easier on your body."
+
+  utter_remind_commitment:
+  - text: "Remember your promise to yourself {set_commitement}"
 
   
 
