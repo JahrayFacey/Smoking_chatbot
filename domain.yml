@@ -20,7 +20,7 @@ intents:
   - reflect_positive_feeling
   - reflect_negative_feeling
   - ask_features
-  - nicotine_information
+  # - nicotine_information
   - strong_craving
   # - box_breathing
   # - four_seven_eight_breathing
@@ -28,6 +28,9 @@ intents:
   - inform_activity
   - activity_feedback_helpful
   - activity_feedback_not_helpful
+  - set_affirmation
+  - request_affirmation
+  - inform_activity_when_smoked
   
   
 entities:
@@ -57,7 +60,7 @@ actions:
   - action_chat_with_gpt
   - action_milestone_achieved
   - validate
-  - action_ask_set_commitement
+  - action_ask_set_commitment
   - action_complete_intro_form
   - action_suggest_breathwork
 
@@ -77,32 +80,41 @@ slots:
   name:
     type: text
     mappings:
-    - type: from_entity
-      entity: name
+    - type: from_text
+      conditions: 
+        - active_loop: introduction_form
+          requested_slot: name
+
 
   length_of_addiction:
     type: text
     mappings: 
-    - type: from_entity
-      entity: length_of_addiction
+    - type: from_text
+      conditions:
+        - active_loop: introduction_form
+          requested_slot: length_of_addiction
 
   money_spent:
     type: text
     mappings:
-    - type: from_entity
-      entity: money_spent
+    - type: from_text
+      conditions:
+        - active_loop: introduction_form
+          requested_slot: money_spent
 
   reasons_for_change:
     type: text
     mappings: 
-    - type: from_entity
-      entity: reasons_for_change
+    - type: from_text
+      conditions:
+        - active_loop: introduction_form
+          requested_slot: reasons_for_change
 
-  set_commitemnt:
+  set_commitment:
     type: text
     mappings:
     - type: from_entity
-      entity: set_commitemnt
+      entity: set_commitment
   
   guided:
     type: bool
@@ -119,6 +131,15 @@ slots:
       - type: from_intent
         intent: activity_feedback_not_helpful
         value: false
+  
+  affirmation:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop:  affirmation_form
+            requested_slot: affirmation
 
 forms:
   introduction_form:
@@ -127,12 +148,16 @@ forms:
       - length_of_addiction
       - money_spent
       - reasons_for_change
+  
+  affirmation_form:
+    required_slots:
+      - affirmation
 
 responses:
   utter_introduction:
   - text: "Hey! Hope everything is going okay. My name is Paul and I'm glad you're here to start your path to freedom.\n Before we begin I would just like to ask a few questions. is that okay?"
 
-  utter_ask_name:
+  utter_ask_introduction_form_name:
   - text: "What is your name"
 
   utter_ask_introduction_form_length_of_addiction:
@@ -188,39 +213,33 @@ responses:
   utter_support2:
   - text: "It's perfectly normal to feel that way and I can definitely relate. I just want you to take a second and praise yourself for taking action."
   
-  utter_set_commitmets:
+  utter_set_commitment:
   - text: "Do you want to set a commitemt? setting goals can be a big motivator."
-
-  utter_goodday:
-  - text: "Have a blessed day. Drink plenty of water aswell. It's hard to ignore things when you're dehydrated."
   
-  utter_commitment:
-  - text: "Here's your commitment. {commitment}"
-  - text: "And as you go about your day remember your promises to yourself. {commitment}."
+  # utter_commitment:
+  # - text: "Here's your commitment. \"{commitment}\""
+  # - text: "And as you go about your day remember your promises to yourself. {commitment}."
 
-  utter_affirmationsetting:
+  utter_affirmation_setting:
   - text: "Do you want to set an affirmation to help motivate you? I can suggest one or you can write one youself."
 
   utter_affirmationbenefits:
   - text: "Affirmations have several benefits including: 1. lowering stress levels 2. Improved mood. 3.Enchanced focus and productivity."
 
-  utter_affirmation_information1:
+  utter_affirmation_information:
   - text: "Affirmations are best repeated daily to recieve the most benefits and remind youself of your strengths. It's good practise to have a set time to read them."
 
-  utter_breathwork:
-  - text: "which breathwork technique would you like to use?"
+  utter_remind_affirmation:
+  - text: "Here's your latest saved affirmation \"{affirmation}\""
 
-  utter_breathwork_length:
-  - text: "How long would you like it to be?"
+  # utter_breathwork:
+  # - text: "which breathwork technique would you like to use?"
 
-  utter_practise_together:
-  - text: "Would you like to practise together?"
+  # utter_practise_together:
+  # - text: "Would you like to practise together?"
   
   utter_report_smoke_confirmation:
   - text: "So you smoked at [location] on [time]? Is that right?"
-
-  utter_meditation_tried_before:
-  - text: "Have you tried meditation before?"
 
   utter_plan_introduction:
   - text: "All good general. I want you to recognise this situation as a potential trigger so that when a craving arrises, you're already equipped to handle it."
@@ -228,26 +247,23 @@ responses:
   utter_plan_activity_confirm:
   - text: "Together we will come up with an activity for you to use."
 
-  utter_is_that_okay:
-  - text: "Is that okay?"
+  # utter_is_that_okay:
+  # - text: "Is that okay?"
 
-  utter_accept_plan_activity:
-  - text: "Perfect. Here's a few of the activities I used to cope with cravings. Why don't you choose one?"
+  # utter_accept_plan_activity:
+  # - text: "Perfect. Here's a few of the activities I used to cope with cravings. Why don't you choose one?"
 
-  utter_deny_plan_activity:
-  - text: "Alright all good. I'm not going anywhere so we can make a plan if you change your mind."
+  # utter_deny_plan_activity:
+  # - text: "Alright all good. I'm not going anywhere so we can make a plan if you change your mind."
 
-  utter_how_did_that_feel:
-  - text: "How did that feel for you?"
+  # utter_how_did_that_feel:
+  # - text: "How did that feel for you?"
 
-  utter_how_did_that_feel_good:
-  - text: "That's great that it made that you feel that way. I think we now have something in place with you."
+  # utter_show_created_plan:
+  # - text: "Now when you find yourself being in this trigger situation, you have something in place to keep you focused. (plan_slot)"
 
-  utter_show_created_plan:
-  - text: "Now when you find yourself being in this trigger situation, you have something in place to keep you focused. (plan_slot)"
-
-  utter_praise1:
-  - text: "I just want to take a second to say I'm proud of you for being able to recognise an issue and take action. Trust and believe that will take you far in life."
+  # utter_praise1:
+  # - text: "I just want to take a second to say I'm proud of you for being able to recognise an issue and take action. Trust and believe that will take you far in life."
 
   utter_how_did_that_activty_feel_bad:
   - text: "No worries, some things aint for us and that's cool. Would you like to try a different activity?"
@@ -255,29 +271,23 @@ responses:
   utter_how_did_that_activty_feel_good:
   - text: "I'm happy to hear that. Keep doing the right things and progress will come sooner than you realise"
 
-  utter_different_activity_yes:
-  - text: "You love to see it. Here's some new activities."
+  # utter_different_activity_yes:
+  # - text: "You love to see it. Here's some new activities."
 
-  utter_different_activity_no:
-  - text: "All good. You can always come back whenever needed. I'm just happy to see that you recognised an issue and attempted to correct it. Just remember not to get discouraged."
+  # utter_different_activity_no:
+  # - text: "All good. You can always come back whenever needed. I'm just happy to see that you recognised an issue and attempted to correct it. Just remember not to get discouraged."
 
-  utter_create_affirmation:
-  - text: "Following off this session, do you want to create an affirmation? I can generate one for you if you like."
+  # utter_create_affirmation_did_activity:
+  # - text: "I would suggest linking your new affirmation with the activity you performed. For example 'I only breath in healthy, clean air' if you did breathwork"
 
-  utter_create_affirmation_did_activity:
-  - text: "I would suggest linking your new affirmation with the activity you performed. For example 'I only breath in healthy, clean air' if you did breathwork"
+  utter_affirmations_saved:
+  - text: \"{affirmation}\" That's a brilliant affirmation. Affirmations are at their most powerful when said out loud and in a mirror. You can ask me at any time."
 
-  utter_generate_activity:
-  - text: (generate activity)
+  # utter_anything_else:
+  # - text: "Do you have anything else you would like to report or talk about?"
 
-  utter_read_affirmations:
-  - text: "Do you want to read a few? Affirmations are at their most powerful when said out loud and in a mirror."
-
-  utter_anything_else:
-  - text: "Do you have anything else you would like to report or talk about?"
-
-  utter_nictotine_information_options:
-  - text: "That's cool. Would you like to know about what it is or the effects it has?"
+  # utter_nictotine_information_options:
+  # - text: "That's cool. Would you like to know about what it is or the effects it has?"
 
   utter_tobacco_information_options:
   - text: "What part of tobacco would you like to learn about?"
@@ -288,8 +298,8 @@ responses:
   utter_what_nicotine_is2:
   - text: "Nicotine is very harmful and has loads of negative effects on almost every part of the body. Continued smoking can lead to heart disease, stroke and lung cancer. Prolonged consumption of nicotine can lead to nicotine dependence. A 2020 study found that 23.6 million people aged 12 and above suffered from nicotine dependence. The body also adapts to nicotine after a while, requiring more to get the same effect as the first time trying it."
 
-  utter_would_know_more:
-  - text: "Would you like to know more?"
+  # utter_would_know_more:
+  # - text: "Would you like to know more?"
 
   utter_suggest_action1:
   - text: "May I suggest these actions. These helped me alot."
@@ -306,12 +316,12 @@ responses:
   - text: "Big up! That means your heart rate and blood pressure has already returnd to normal."
   - text: "Just a day and you're already much healthier!"
 
-  utter_milestone_day_2:
-  - text: "You know Carbon Monoxide? That gas that prevents oxygen delivery and increases the chance of heart disease?"
-  - text: "Guess what? It's gone! Every day that passes is changing you for the better!"
+  # utter_milestone_day_2:
+  # - text: "You know Carbon Monoxide? That gas that prevents oxygen delivery and increases the chance of heart disease?"
+  # - text: "Guess what? It's gone! Every day that passes is changing you for the better!"
 
-  utter_milestone_day_3:
-  - text: "Your lungs have started repairing themselves. Breathing is going to be alot easier on your body."
+  # utter_milestone_day_3:
+  # - text: "Your lungs have started repairing themselves. Breathing is going to be alot easier on your body."
 
   utter_remind_commitment:
   - text: "Remember your promise to yourself {set_commitement}"
