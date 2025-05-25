@@ -27,108 +27,15 @@ stories:
   - intent: inform_craving_intensity
   - action: suggest actions
 
-- story: report smoke and get activity
-  steps:
-  - intent: report_smoke
-  - action: Support1
-  - action: utter_wheredidyousmoke
-  - intent: inform_location
-    entities:
-    - location: work
-  - action: utter_whendidyousmoke
-  - intent: inform_time
-    entities:
-    - time: 1.00pm
-  - action: utter_feelbefore
-  - or:
-    - intent: reflect_negative_feeling
-    - intent: reflect_positive_feeling
-  - action: utter_feelafter
-  - or:
-    - intent: reflect_negative_feeling
-    - intent: reflect_positive_feeling
-  - action: utter_report_smoke_confirmation
-  - intent: affirm
-  - action: utter_support2
-  - action: utter_plan_introduction
-  - action: utter_suggest_action1
 
 - story: user requests information about what nicotine is
   steps:
   - intent: request_tobacco_information
-  - action: utter_tobbaco_information_options
+  - action: utter_tobacco_information_options
   - intent: what_nicotine_is 
   - action: utter_what_nicotine_is1
   - action: utter_what_nicotine_is2
 
-- story: user requests abdominal breathing
-  steps:
-  - intent: request_activity
-  - action: utter_plan_activity_confirm
-  - intent: inform_activity
-    entities:
-     - activity_type: "abdominal breathing" 
-  - action: action_abdominal_breathing
-
-- story: user requests 4-7-8 breathing
-  steps:
-  - intent: request_activity
-  - action: utter_plan_activity_confirm
-  - intent: inform_activity
-    entities:
-     - activity_type: "four_seven_eight_breathing"
-  - action: action_four_seven_eight_breathing
-
-- story: user requests box breathing
-  steps:
-  - intent: request_activity
-  - action: utter_plan_activity_confirm
-  - intent: inform_activity
-    entities:
-     - activity_type: "box breathing"
-  - action: action_box_breathing
-
-- story: user requests mindfulness meditation
-  steps:
-  - intent: request_meditation
-    entities:
-    - meditation_type: "mindfulness"
-  - action: action_ask_guided
-  - intent: confirm_guided
-    entities:
-    - guided: "yes"
-  - action: action_guided_mindfulness_meditation
-
-- story: user requests unguided progressive relaxation
-  steps:
-  - intent: request_meditation
-    entities:
-    - meditation_type: "progressive relaxation"
-  - action: action_ask_guided
-  - intent: confirm_guided
-    entities:
-    - guided: "no"
-  - action: action_progressive_relaxation
-
-- story: user requests focused meditation
-  steps:
-  - intent: request_meditation
-    entities:
-    - meditation_type: "focused"
-  - action: action_ask_guided
-  - intent: confirm_guided
-    entities:
-    - guided: "yes"
-  - action: action_guided_focused_meditation
-
-- story: user reports work break trigger
-  steps:
-  - intent: report_smoke
-  - action: utter_wheredidyousmoke
-  - intent: inform_location
-    entities:
-    - location: "work"
-  - action: action_mindfulness_meditation
 
 - story: When the user enters the daily talk begin with a greet, congratulate the user on not smoking and give the milestone that they achieved (once per day)
   steps:
@@ -136,9 +43,95 @@ stories:
   - action: utter_congratulate_not_smoking
   - action: utter_milestone_day_1
 
+- story: report smoke and get activity
+  steps:
+    - intent: report_smoke
+    - action: Support1
+    - action: utter_wheredidyousmoke
+    - intent: inform_location
+    - action: utter_whendidyousmoke
+    - intent: inform_time
+    - action: utter_whatactivity
+    - intent: inform_activity_when_smoked
+    - action: utter_feelbefore
+    - or:
+      - intent: reflect_negative_feeling
+      - intent: reflect_positive_feeling
+    - action: utter_feelafter
+    - or:
+      - intent: reflect_negative_feeling
+      - intent: reflect_positive_feeling
+    - action: utter_report_smoke_confirmation
+    - intent: affirm
+    - action: utter_support2
+    - action: utter_plan_introduction
+    - action: utter_suggest_action1
+
+- story: user requests abdominal breathing
+  steps:
+    - intent: request_activity
+    - action: utter_plan_activity_confirm
+    - intent: inform_activity
+      entities:
+      - activity_type: "abdominal breathing" 
+    - action: action_abdominal_breathing
+
+- story: user requests 4-7-8 breathing
+  steps:
+    - intent: request_activity
+    - action: utter_plan_activity_confirm
+    - intent: inform_activity
+      entities:
+      - activity_type: "four_seven_eight_breathing"
+    - action: action_four_seven_eight_breathing
+
+- story: user requests box breathing
+  steps:
+    - intent: request_activity
+    - action: utter_plan_activity_confirm
+    - intent: inform_activity
+      entities:
+      - activity_type: "box breathing"
+    - action: action_box_breathing
+
+- story: user requests mindfulness meditation
+  steps:
+    - intent: request_meditation
+      entities:
+      - meditation_type: "mindfulness"
+    - action: action_ask_guided
+    - intent: confirm_guided
+      entities:
+      - guided: "yes"
+    - action: action_guided_mindfulness_meditation
+
+
+- story: user requests unguided progressive relaxation
+  steps:
+    - intent: request_meditation
+      entities:
+      - meditation_type: "progressive relaxation"
+    - action: action_ask_guided
+    - intent: confirm_guided
+      entities:
+      - guided: "no"
+    - action: action_progressive_relaxation
+
+- story: user requests focused meditation
+  steps:
+    - intent: request_meditation
+      entities:
+      - meditation_type: "focused"
+    - action: action_ask_guided
+    - intent: confirm_guided
+      entities:
+      - guided: "yes"
+    - action: action_guided_focused_meditation
+
 - story: User asks for features
   steps:
   - intent: ask_features
   - action: utter_features
+
 
   

@@ -111,26 +111,26 @@ nlu:
 
 - intent: reflect_negative_feeling
   examples: |
-    - I feel guilty 
+    - I feel [guilty](feelings) 
     - I feel stressed
-    - I feel bad
+    - I feel [bad](feelings)
     - I feel awful
-    - I feel depressed
-    - I feel upset
+    - I feel [depressed](feelings)
+    - I feel [upset](feelings)
     - I feel down
-    - I feel tense
+    - I feel [tense](feelings)
     - I feel restless
-    - I feel annoyed
+    - I feel [annoyed](feelings)
     - I feel irritated
 
 - intent: reflect_positive_feeling
   examples: |
-    - I feel okay
+    - I feel [okay](feelings)
     - I feel good
     - I feel relaxed
-    - I feel happy
+    - I feel [happy](feelings)
     - I feel great
-    - I feel amazing
+    - I feel [amazing](feelings)
     - I feel at ease
 
 - intent: positive_day
@@ -157,11 +157,11 @@ nlu:
     - I'm curious about tobacco
     - I would like to learn about tobacco
 
-- intent: nicotine_information
-  examples: |
-    - I'm interested learning about nicotine
-    - I'm curious about nicotine
-    - I want to learn about nicotine and it's effects
+# - intent: nicotine_information
+#   examples: |
+#     - I'm interested learning about nicotine
+#     - I'm curious about nicotine
+#     - I want to learn about nicotine and it's effects
 
 - intent: what_nicotine_is
   examples: |
@@ -291,6 +291,34 @@ nlu:
     - I smoked in the [night](time)
     - I smoked in the [evening](time)
     - I smoked during the day at around [3pm](time)
+
+- intent: inform_activity_when_smoked
+  examples: |
+    - I was with friends
+    - I was working
+    - I was playing games
+    - I was outside doing something
+    - I was playing sports
+    - I was trying to sleep
+    - I was eating
+  
+- intent: set_affirmation
+  examples: |
+    - I want to set an affirmation
+    - I would like to create an affirmation
+    - can i create an affirmation
+    - can i set a positive message to remember
+    - help me set an affirmation
+    - help me set a positive affirmation
+
+- intent: request_affirmation
+  examples: |
+    - what's my affirmation
+    - remind me of my Affirmations
+    - can i get a reminder of my affirmation
+    - can i hear my message?
+    - I want to read my affirmation
+    - read my affirmation 
 
 # - intent: four_seven_eight_breathing
 #   examples: |

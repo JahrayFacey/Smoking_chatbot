@@ -21,9 +21,9 @@ rules:
     - completed_form: true
   - action: action_complete_intro_form
   - action: utter_intro_congratulations
-  - action: utter_set_commitments
+  - action: utter_set_commitment
   - intent: affirm
-  - action: action_ask_set_commitement
+  - action: action_ask_set_commitment
 
 - rule: mark the intro form as done so it doesn't run anymore and utter message of congratulations and ask user to set a commitment/sad path
   condition:
@@ -35,7 +35,7 @@ rules:
     - completed_form: true
   - action: action_complete_intro_form
   - action: utter_intro_congratulations
-  - action: utter_ask_set_commitments
+  - action: action_ask_set_commitment
   - intent: deny
 
 - rule: remind user of commitemnt
@@ -47,6 +47,11 @@ rules:
   steps:
     - intent: goodbye
     - action: utter_goodbye
+
+- rule: User asks for features
+  steps:
+  - intent: ask_features
+  - action: utter_features
 
 - rule: ask if user found box breathing helpful
   steps:  
@@ -102,6 +107,36 @@ rules:
   steps:
     - intent: activity_feedback_not_helpful
     - action: utter_how_did_that_activty_feel_bad
+
+- rule: ask to set an affirmation
+  steps: 
+    - intent: set_affirmation
+    - action: utter_affirmation_setting
+    - action: utter_affirmationbenefits
+
+- rule: start affirmation form
+  steps:
+    - intent: affirm
+    - action: affirmation_form
+    - active_loop: affirmation_form
+
+- rule: submit affirmation form
+  condition:
+    - active_loop: affirmation_form
+  steps:
+    - action: affirmation_form
+    - active_loop: null
+    - slot_was_set:
+      - affirmation: true
+    - action: utter_affirmations_saved
+
+- rule: remind affirmation
+  steps:
+    - intent: request_affirmation
+    - action: utter_remind_affirmation
+    - action: utter_affirmation_information
+
+
 
 
 # - rule: Handle request for abdominal breathing
