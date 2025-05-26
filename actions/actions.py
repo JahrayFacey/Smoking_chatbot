@@ -1,70 +1,12 @@
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/custom-actions
-
-
-# This is a simple example for a custom action which utters "Hello World!"
-
-# from typing import Any, Text, Dict, List
-#
-#from rasa_sdk import Action, Tracker
-# from rasa_sdk.executor import CollectingDispatcher
-#
-#
-# class ActionHelloWorld(Action):
-#
-#     def name(self) -> Text:
-#         return "action_hello_world"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#
-#         dispatcher.utter_message(text="Hello World!")
-#
-#         return []
-# from typing import Any, Text, Dict, List
-# from rasa_sdk import Action, Tracker
-# from rasa_sdk.events import SlotSet
-
-# class ActionSuggest478breathing(Action):
-#     def name(self):
-#         return "action_suggest_478breathwork"
-
-#     def run(self, dispatcher, tracker, domain):
-#         dispatcher.utter_message("Try the 4-7-8 breathing technique: Inhale for 4s, hold for 7s, exhale for 8s.")
-#         return []
-
-# class ActionSuggestboxbreathing(Action):
-#     def name(self):
-#         return "action_suggest_boxbreathing"
-
-#     def run(self, dispatcher, tracker, domain):
-#         dispatcher.utter_message("Try this box breathing technique: Inhale for 4s, hold for 4s, exhale for 4s and hold for 4s.")
-#         return []
-    
-# class ActionSuggestAbdombinalbreathing(Action):
-#     def name(self):
-#         return "action_suggest_boxbreathing"
-
-#     def run(self, dispatcher, tracker, domain):
-#         dispatcher.utter_message("Pay close attention to the movement of your abdomen and breath as you breathe deeply, filling your body with air.")
-#         return []
-
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import SlotSet, FollowupAction
 from datetime import datetime
+import time
 import openai
 import random
 
-# class SetQuitDate(Action):
-#     def name(self) -> Text:
-#         return "SetQuitDate"
-#     def run()
 
 class ActionCompleteIntroForm(Action):
     def name(self):
@@ -87,6 +29,22 @@ class ActionSetCommitment(Action):
         commitment_text = tracker.latest_message.get("text")
         dispatcher.utter_message(text="Perfect. I will be sure to remind you.")
         return(SlotSet("commitment", commitment_text))
+    
+class ActionDispatchBreathingActivity(Action):
+    def name(self):
+        return "action_dispatch_breathing_activity"
+    
+    def run(self, dispatcher, tracker, domain):
+        activity_type = tracker.get_slot("activity_type")
+        if activity_type == "abdominal breathing":
+            return [FollowupAction("action_abdominal_breathing")]
+        elif activity_type == "4-7-8 breathing" or "478 breathing":
+            return [FollowupAction("action_four_seven_eight_breathing")]
+        elif activity_type == "Box breathing":
+            return [FollowupAction("action_box_breathing")]
+        else:
+            dispatcher.utter_message("Sorry, I don't know that activity.")
+            return []
 
 class ActionAbdominalBreathing(Action):
     def name(self) -> Text:
@@ -129,7 +87,6 @@ class ActionBoxBreathing(Action):
         dispatcher.utter_message(text="Take a moment to observe how you feel.")
         return []
 
-# Example of an action that randomly suggests a breathwork technique
 class ActionSuggestBreathwork(Action):
     def name(self) -> Text:
         return "action_suggest_breathwork"
@@ -138,8 +95,6 @@ class ActionSuggestBreathwork(Action):
         techniques = ["abdominal breathing", "4-7-8 breathing", "box breathing"]
         chosen_technique = random.choice(techniques)
         dispatcher.utter_message(text=f"Let's try some breathwork. How about we do some {chosen_technique}?")
-        # You might want to trigger the specific action for the chosen technique here
-        # or handle the user's confirmation in the stories.
         return []
     
 class ActionMindfulnessMeditation(Action):
@@ -181,7 +136,30 @@ class ActionFocusedMeditation(Action):
         dispatcher.utter_message(text="Continue for a few minutes, maintaining your focus.")
         return []
 
-# Guided Meditations (Simplified Examples):
+class ActionDispatchMeditation(Action):
+    def name(self):
+        return "action_dispatch_meditation"
+    
+    def run(self, dispatcher, tracker, domain):
+        meditation_type = tracker.get_slot("meditation_type")
+        guided = tracker.get_slot("guided")
+        if meditation_type == "mindfulness" and guided == "yes":
+            return [FollowupAction("action_guided_mindfulness_meditation")]
+        elif meditation_type == "focused" and guided == "yes":
+            return [FollowupAction("action_guided_focused_meditation")]
+        elif meditation_type == "progressive relaxation" and guided == "yes":
+            return [FollowupAction("action_guided_progressive_relaxation")]
+        elif meditation_type == "mindfulness" and guided == "no":
+            return [FollowupAction("action_mindfulness_meditation")]
+        elif meditation_type == "focused" and guided == "no":
+            return [FollowupAction("action_focused_mediation")]
+        elif meditation_type == "progressive relaxation" and guided == "no":
+            return [FollowupAction("action_progressive_relaxation")]
+        else:
+            dispatcher.utter_message("Not familiar with that mediation, sorry.")
+            return []
+
+
 class ActionGuidedMindfulnessMeditation(Action):
     def name(self) -> Text:
         return "action_guided_mindfulness_meditation"
@@ -293,6 +271,30 @@ class ActionChatwithGPT(Action):
         gpt_reply = response['choices'][0]['message']['content']
         dispatcher.utter_message(text=gpt_reply)
         return []
+    
+class ActionActivityGenerateWithGPT(Action):
+    def name(self):
+        return "action_activity_generate_with_gpt"
+    
+    def run(self, dispatcher, tracker, domain):
+        craving_intensity = tracker.get_slot("craving_intensity")
+        location = tracker.get_slot("location")
+
+        prompt = (f"A user reported that they smoked after trying to quit."
+                  f"Their craving intensity was {craving_intensity}/10 whilst they were at {location}."
+                  "Suggest a healthy activity that they can do for when they are in that situation again."
+        )
+        
+        openai.api_key = "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"
+        response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{"role": "user", "content": prompt}],
+            max_tokens=150,
+            temperature=0.7,
+    )
+        suggestion = response.choices[0].message['content'].strip()
+        dispatcher.utter_message(text = suggestion)
+        return []
+
+
 class MilestoneAchieved(Action):
 
     def name(self) -> Text:
