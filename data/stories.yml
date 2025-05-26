@@ -2,6 +2,29 @@ version: "3.1"
 
 stories:
 
+- story: mark the intro form as done so it doesn't run anymore and utter message of congratulations and ask user to set a commitment/happy path
+  steps:
+  - action: introduction_form
+  - active_loop: null
+  - slot_was_set:
+    - completed_form: true
+  - action: action_complete_intro_form
+  - action: utter_intro_congratulations
+  - action: utter_set_commitment
+  - intent: affirm
+  - action: action_ask_set_commitment
+
+- story: mark the intro form as done so it doesn't run anymore and utter message of congratulations and ask user to set a commitment/sad path
+  steps:
+  - action: introduction_form
+  - active_loop: null
+  - slot_was_set:
+    - completed_form: true
+  - action: action_complete_intro_form
+  - action: utter_intro_congratulations
+  - action: utter_set_commitment
+  - intent: deny
+
 - story: user greets the bot and reports that he had a good day
   steps: 
   - intent: greet
@@ -21,11 +44,16 @@ stories:
   steps:
   - intent: strong_craving
   - action: utter_support1
-  - action: commitment-reminder
-  - action: craving_information
-  - action: craving_strength
+  - action: utter_remind_commitment
+  - action: utter_ask_craving_intensity
   - intent: inform_craving_intensity
-  - action: suggest actions
+    entities:
+      - craving_intensity: 8
+  - action: utter_wheredidyousmoke
+  - intent: inform_location
+    entities:
+      - location: "work"
+  - action: action_activity_generate_with_gpt
 
 
 - story: user requests information about what nicotine is
@@ -67,66 +95,30 @@ stories:
     - action: utter_plan_introduction
     - action: utter_suggest_action1
 
-- story: user requests abdominal breathing
+- story: user requests breathing activity
   steps:
     - intent: request_activity
     - action: utter_plan_activity_confirm
     - intent: inform_activity
-      entities:
-      - activity_type: "abdominal breathing" 
-    - action: action_abdominal_breathing
+    - action: action_dispatch_breathing_activity
 
-- story: user requests 4-7-8 breathing
-  steps:
-    - intent: request_activity
-    - action: utter_plan_activity_confirm
-    - intent: inform_activity
-      entities:
-      - activity_type: "four_seven_eight_breathing"
-    - action: action_four_seven_eight_breathing
-
-- story: user requests box breathing
-  steps:
-    - intent: request_activity
-    - action: utter_plan_activity_confirm
-    - intent: inform_activity
-      entities:
-      - activity_type: "box breathing"
-    - action: action_box_breathing
-
-- story: user requests mindfulness meditation
+- story: user request guided meditation
   steps:
     - intent: request_meditation
-      entities:
-      - meditation_type: "mindfulness"
     - action: action_ask_guided
     - intent: confirm_guided
       entities:
       - guided: "yes"
-    - action: action_guided_mindfulness_meditation
+    - action: action_dispatch_meditation
 
-
-- story: user requests unguided progressive relaxation
+- story: user request unguided meditation
   steps:
     - intent: request_meditation
-      entities:
-      - meditation_type: "progressive relaxation"
     - action: action_ask_guided
     - intent: confirm_guided
       entities:
       - guided: "no"
-    - action: action_progressive_relaxation
-
-- story: user requests focused meditation
-  steps:
-    - intent: request_meditation
-      entities:
-      - meditation_type: "focused"
-    - action: action_ask_guided
-    - intent: confirm_guided
-      entities:
-      - guided: "yes"
-    - action: action_guided_focused_meditation
+    - action: action_dispatch_meditation
 
 - story: User asks for features
   steps:

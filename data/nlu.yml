@@ -172,12 +172,13 @@ nlu:
 
 - intent: inform_location
   examples: |
-    - work
-    - school
+    - [work](location)
+    - [school](location)
     - outside
     - inside
     - with friends
-    - park
+    - [park](location)
+    - at [home](location)
 
 - intent: request_activity
   examples: |
@@ -197,7 +198,7 @@ nlu:
     - Let's do [abdominal breathing](activity_type)
     - can we try [abdominal breathing](activity_type)
     - [abdominal](activity_type) sounds good
-    - I would like to try[4-7-8 breathing](activity_type)
+    - I would like to try [4-7-8 breathing](activity_type)
     - can we do [4 7 8 breathing](activity_type)
     - i want to practise [478 breathing](activity_type)
     - [478](activity_type)
@@ -208,12 +209,12 @@ nlu:
 
 - intent: confirm_guided
   examples: |
-    - ["Yes](guided), please."
+    - "[Yes](guided), please."
     - "[Guided](guided), please."
-    - ["Yes](guided), I would like a guided one."
+    - "[Yes](guided), I would like a guided one."
     - "[Definitely guided](guided)."
     - "Sure, that would be helpful."
-    - "[Yes](guided)Yes, guide me."
+    - "[Yes](guided), guide me."
     - "I'd prefer [guided](guided)."
     - [Yes](guided), I want to be guided.
     - [Yes](guided), that sounds good.

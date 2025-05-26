@@ -11,32 +11,6 @@ rules:
    - action: introduction_form
    - active_loop: introduction_form
 
-- rule: mark the intro form as done so it doesn't run anymore and utter message of congratulations and ask user to set a commitment/happy path
-  condition:
-    - active_loop: introduction_form
-  steps:
-  - action: introduction_form
-  - active_loop: null
-  - slot_was_set:
-    - completed_form: true
-  - action: action_complete_intro_form
-  - action: utter_intro_congratulations
-  - action: utter_set_commitment
-  - intent: affirm
-  - action: action_ask_set_commitment
-
-- rule: mark the intro form as done so it doesn't run anymore and utter message of congratulations and ask user to set a commitment/sad path
-  condition:
-    - active_loop: introduction_form
-  steps:
-  - action: introduction_form
-  - active_loop: null
-  - slot_was_set:
-    - completed_form: true
-  - action: action_complete_intro_form
-  - action: utter_intro_congratulations
-  - action: action_ask_set_commitment
-  - intent: deny
 
 - rule: remind user of commitemnt
   steps:
@@ -116,6 +90,7 @@ rules:
 
 - rule: start affirmation form
   steps:
+    - action: utter_affirmationbenefits
     - intent: affirm
     - action: affirmation_form
     - active_loop: affirmation_form
