@@ -31,8 +31,7 @@ intents:
   - set_affirmation
   - request_affirmation
   - inform_activity_when_smoked
-  
-  
+
 entities:
   - location
   - feeling
@@ -47,6 +46,8 @@ entities:
   - set_commitment
   
 actions:
+  - action_dispatch_breathing_activity
+  - action_dispatch_meditation
   - action_abdominal_breathing
   - action_four_seven_eight_breathing
   - action_box_breathing
@@ -58,6 +59,7 @@ actions:
   - action_guided_focused_meditation
   - action_ask_guided
   - action_chat_with_gpt
+  - action_activity_generate_with_gpt
   - action_milestone_achieved
   - validate
   - action_ask_set_commitment
@@ -140,7 +142,13 @@ slots:
         conditions:
           - active_loop:  affirmation_form
             requested_slot: affirmation
-
+  
+  craving_intensity:
+    type: float
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        intent: inform_craving_intensity
 forms:
   introduction_form:
     required_slots:
@@ -193,7 +201,7 @@ responses:
   - text: "Alright mate! Have a blessed day and remember to drink plenty of water. Take care."
 
   utter_wheredidyousmoke:
-  - text: "Where did you smoke?"
+  - text: "Where did you smoke (e.g work, park, at home)?"
 
   utter_whendidyousmoke:
   - text: "when did you smoke?"
@@ -298,6 +306,8 @@ responses:
   utter_what_nicotine_is2:
   - text: "Nicotine is very harmful and has loads of negative effects on almost every part of the body. Continued smoking can lead to heart disease, stroke and lung cancer. Prolonged consumption of nicotine can lead to nicotine dependence. A 2020 study found that 23.6 million people aged 12 and above suffered from nicotine dependence. The body also adapts to nicotine after a while, requiring more to get the same effect as the first time trying it."
 
+  utter_ask_craving_intensity:
+  - text: "On a scale of 1 to 10, how strong was your craving?"
   # utter_would_know_more:
   # - text: "Would you like to know more?"
 
@@ -325,10 +335,6 @@ responses:
 
   utter_remind_commitment:
   - text: "Remember your promise to yourself {set_commitement}"
-
-  
-
-
 
 session_config:
   session_expiration_time: 60
