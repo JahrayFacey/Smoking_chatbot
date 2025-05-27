@@ -74,7 +74,7 @@ stories:
 - story: report smoke and get activity
   steps:
     - intent: report_smoke
-    - action: Support1
+    - action: utter_support1
     - action: utter_wheredidyousmoke
     - intent: inform_location
     - action: utter_whendidyousmoke
